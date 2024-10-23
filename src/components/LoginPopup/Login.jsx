@@ -13,7 +13,7 @@ const Login = ({ handleSignIn }) => {
         <form className="flex flex-col gap-3">
           <div>
             <label for="username" className="input-label">
-              Username
+                Aadhar No.
             </label>
             <input id="username" type="text" className="input" />
           </div>
