@@ -1,46 +1,50 @@
-import React, { useState, useRef, useEffect } from "react";
-import Signin from "./Signin";
+import React, { useState, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Login from "./Login";
-import { motion } from "framer-motion";
+import Signin from "./Signin";
 
 const LoginPopup = ({ loginPopup, handleLoginPopup }) => {
   const [showSignIn, setShowSignIn] = useState(false);
+  const loginPopupRef = useRef();
 
   const handleSignIn = () => {
     setShowSignIn(!showSignIn);
   };
 
-  const loginPopupRef = useRef();
-
-  window.addEventListener("click", (e) => {
+  const handleBackdropClick = (e) => {
     if (e.target === loginPopupRef.current) {
       handleLoginPopup(false);
     }
-  });
+  };
 
   return (
-    <>
+    <AnimatePresence>
       {loginPopup && (
         <div
           ref={loginPopupRef}
-          className="fixed top-0 left-0 w-full h-full z-50 overflow-y-auto"
+          className="fixed inset-0 w-full h-full z-50 bg-black/50 backdrop-blur-sm overflow-y-auto"
+          onClick={handleBackdropClick}
         >
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2  w-[90%] sm:w-auto ">
-            <motion.div
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              className="rounded-2xl bg-white/10 backdrop-blur-md shadow-custom-inset sm:w-[600px] md:w-[380px] "
-            >
-              {showSignIn ? (
-                <Signin handleSignIn={handleSignIn} />
-              ) : (
-                <Login handleSignIn={handleSignIn} />
-              )}
-            </motion.div>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 20 }}
+            transition={{ duration: 0.3 }}
+            className="flex items-center justify-center min-h-screen px-4 py-8"
+          >
+            <div className="w-full max-w-md">
+              <div className="relative rounded-2xl bg-[#1a0f0f]/90 backdrop-blur-md shadow-xl">
+                {showSignIn ? (
+                  <Signin handleSignIn={handleSignIn} handleLoginPopup={handleLoginPopup} />
+                ) : (
+                  <Login handleSignIn={handleSignIn} handleLoginPopup={handleLoginPopup} />
+                )}
+              </div>
+            </div>
+          </motion.div>
         </div>
       )}
-    </>
+    </AnimatePresence>
   );
 };
 

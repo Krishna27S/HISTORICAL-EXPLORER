@@ -3,36 +3,31 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
+// Create the connection pool
 const pool = mysql.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
+  host: process.env.DB_HOST || 'localhost',
+  user: process.env.DB_USER || 'root',
   password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
+  database: process.env.DB_NAME || 'historical_explorer',
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
 });
 
-export const dbConnect = async () => {
+// Test connection function
+const testConnection = async () => {
   try {
     const connection = await pool.getConnection();
-    await connection.query(`
-      CREATE TABLE IF NOT EXISTS users (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        username VARCHAR(255) NOT NULL UNIQUE,
-        email VARCHAR(255) NOT NULL UNIQUE,
-        password VARCHAR(255) NOT NULL,
-        role ENUM('user', 'admin') DEFAULT 'user',
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-      )
-    `);
+    console.log('Successfully connected to MySQL database!');
     connection.release();
-    console.log('Database connected successfully');
-    return pool;
+    return true;
   } catch (error) {
-    console.error('Database connection failed:', error);
-    throw error;
+    console.error('Error connecting to the database:', error);
+    return false;
   }
 };
+
+// Test the connection immediately
+testConnection();
 
 export default pool;

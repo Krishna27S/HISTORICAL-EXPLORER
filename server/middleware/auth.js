@@ -1,13 +1,14 @@
-import jwt from 'jsonwebtoken';
+import { verifyToken } from '../utils/jwt.js';
 
-export const auth = (req, res, next) => {
+export const authMiddleware = async (req, res, next) => {
   try {
     const token = req.header('Authorization')?.replace('Bearer ', '');
+    
     if (!token) {
-      return res.status(401).json({ message: 'No authentication token' });
+      return res.status(401).json({ message: 'No token provided' });
     }
 
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = verifyToken(token);
     req.user = decoded;
     next();
   } catch (error) {
@@ -15,7 +16,7 @@ export const auth = (req, res, next) => {
   }
 };
 
-export const adminAuth = (req, res, next) => {
+export const adminMiddleware = async (req, res, next) => {
   try {
     if (req.user.role !== 'admin') {
       return res.status(403).json({ message: 'Admin access required' });
