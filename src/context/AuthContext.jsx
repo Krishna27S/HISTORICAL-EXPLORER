@@ -9,16 +9,22 @@ export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check for stored user data on component mount
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       setUser(JSON.parse(storedUser));
     }
   }, []);
 
-  const login = (userData) => {
-    setUser(userData);
-    localStorage.setItem('user', JSON.stringify(userData));
+  const login = async (userData) => {
+    try {
+      setUser(userData);
+      localStorage.setItem('user', JSON.stringify(userData));
+      console.log('User logged in:', userData); // Debug log
+      return true;
+    } catch (error) {
+      console.error('Login error:', error);
+      throw error;
+    }
   };
 
   const logout = () => {
