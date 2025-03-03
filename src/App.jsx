@@ -12,11 +12,12 @@ const App = () => {
 
   const bgImage = {
     width: "100%",
-    height: "100%",
-    backgroundImage: `url(${BgImage})`,
+    height: "100vh",
+    background: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(${BgImage})`,
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
+    backgroundAttachment: "fixed",
   };
   return (
     <>

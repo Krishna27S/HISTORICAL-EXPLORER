@@ -2,12 +2,256 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="icon" type="image/png" href="/ancient-compass.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Historican Event Explorer</title>
+    
+    <!-- Primary Meta Tags -->
+    <title>Ancient Realms Explorer - Mystical Gateway</title>
+    <meta name="title" content="Ancient Realms Explorer - Mystical Gateway" />
+    <meta name="description" content="Step through the veil of time into a mystical journey through history's greatest mysteries." />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <style>
+      :root {
+        --primary-gold: #926d3b;
+        --light-gold: #c69f6a;
+        --dark-brown: #1a0f0f;
+        --parchment: #f3d5b5;
+      }
+
+      /* Ancient Particles Animation */
+      @keyframes floatingParticles {
+        0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+        50% { opacity: 0.8; }
+        100% { transform: translate(var(--random-x), var(--random-y)) rotate(360deg); opacity: 0; }
+      }
+
+      /* Mystical Background */
+      body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: 
+          linear-gradient(rgba(26, 15, 15, 0.9), rgba(26, 15, 15, 0.7)),
+          url('/ancient-texture.png');
+        z-index: -1;
+        animation: ambientLight 10s infinite alternate;
+      }
+
+      @keyframes ambientLight {
+        0% { filter: brightness(1) sepia(0.3); }
+        50% { filter: brightness(1.1) sepia(0.4); }
+        100% { filter: brightness(1) sepia(0.3); }
+      }
+
+      /* Enchanted Loading Screen */
+      .mystical-loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--dark-brown);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      }
+
+      .loader-container {
+        position: relative;
+        width: 200px;
+        height: 200px;
+      }
+
+      .loader-circle {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border: 4px solid transparent;
+        border-top: 4px solid var(--primary-gold);
+        border-radius: 50%;
+        animation: spin 2s linear infinite;
+      }
+
+      .loader-circle:nth-child(2) {
+        border-top: 4px solid var(--light-gold);
+        animation-duration: 3s;
+      }
+
+      .loader-content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+      }
+
+      .loader-icon {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 15px;
+        animation: pulse 2s infinite;
+      }
+
+      .loader-text {
+        font-family: 'Metamorphous', cursive;
+        color: var(--primary-gold);
+        font-size: 1.2em;
+        opacity: 0;
+        animation: fadeInOut 2s infinite;
+      }
+
+      /* Ancient Scrollbar */
+      ::-webkit-scrollbar {
+        width: 14px;
+        background: url('/scroll-track.png') repeat-y center;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: 
+          linear-gradient(45deg, var(--primary-gold), var(--light-gold)),
+          url('/scroll-handle.png');
+        border: 3px solid var(--dark-brown);
+        border-radius: 7px;
+        box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: linear-gradient(45deg, var(--light-gold), var(--primary-gold));
+      }
+
+      /* Custom Cursor */
+      body {
+        margin: 0;
+        padding: 0;
+        background: var(--dark-brown);
+        font-family: 'Cinzel Decorative', cursive;
+        cursor: url('/quill-cursor.png'), auto;
+      }
+
+      a, button, [role="button"] {
+        cursor: url('/scroll-cursor.png'), pointer;
+      }
+
+      /* Selection Style */
+      ::selection {
+        background: rgba(146, 109, 59, 0.3);
+        color: var(--parchment);
+        text-shadow: 0 0 5px var(--primary-gold);
+      }
+
+      /* Ancient Portal Effect */
+      #root::before {
+        content: '';
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 200vmax;
+        height: 200vmax;
+        background: radial-gradient(circle, transparent 30%, var(--dark-brown) 70%);
+        opacity: 0.1;
+        animation: portalPulse 10s infinite;
+      }
+
+      @keyframes portalPulse {
+        0% { transform: translate(-50%, -50%) scale(1); }
+        50% { transform: translate(-50%, -50%) scale(1.1); }
+        100% { transform: translate(-50%, -50%) scale(1); }
+      }
+    </style>
   </head>
   <body>
+    <!-- Mystical Loading Screen -->
+    <div class="mystical-loader" id="loader">
+      <div class="loader-container">
+        <div class="loader-circle"></div>
+        <div class="loader-circle"></div>
+        <div class="loader-content">
+          <img src="/ancient-artifact.png" alt="Ancient Artifact" class="loader-icon">
+          <div class="loader-text">Opening the Portal...</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ancient Particles -->
+    <div id="particles"></div>
+    
+    <!-- Root Element -->
     <div id="root"></div>
+    
+    <!-- Mystical Scripts -->
+    <script>
+      // Particle System
+      function createParticle() {
+        const particle = document.createElement('div');
+        particle.className = 'ancient-particle';
+        particle.style.cssText = `
+          position: fixed;
+          width: 4px;
+          height: 4px;
+          background: ${Math.random() > 0.5 ? '#926d3b' : '#c69f6a'};
+          border-radius: 50%;
+          pointer-events: none;
+          z-index: 9998;
+        `;
+        
+        const startX = Math.random() * window.innerWidth;
+        const startY = Math.random() * window.innerHeight;
+        particle.style.left = startX + 'px';
+        particle.style.top = startY + 'px';
+        
+        const randomX = (Math.random() - 0.5) * 200;
+        const randomY = (Math.random() - 0.5) * 200;
+        particle.style.setProperty('--random-x', randomX + 'px');
+        particle.style.setProperty('--random-y', randomY + 'px');
+        
+        particle.style.animation = 'floatingParticles 3s ease-out forwards';
+        
+        document.getElementById('particles').appendChild(particle);
+        setTimeout(() => particle.remove(), 3000);
+      }
+
+      // Create particles periodically
+      setInterval(createParticle, 200);
+
+      // Loader Animation
+      window.addEventListener('load', function() {
+        const loader = document.getElementById('loader');
+        setTimeout(() => {
+          loader.style.transition = 'opacity 1s ease, transform 1s ease';
+          loader.style.opacity = '0';
+          loader.style.transform = 'scale(1.2)';
+          setTimeout(() => {
+            loader.style.display = 'none';
+          }, 1000);
+        }, 2000);
+      });
+
+      // Add mystical sound effects (optional)
+      function playPortalSound() {
+        const audio = new Audio('/portal-sound.mp3');
+        audio.volume = 0.3;
+        audio.play().catch(() => {});
+      }
+
+      // Play sound on significant interactions (optional)
+      document.addEventListener('click', (e) => {
+        if (e.target.closest('button')) {
+          playPortalSound();
+        }
+      });
+    </script>
+    
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

@@ -14,30 +14,30 @@ const Navbar = ({ handleLoginPopup }) => {
             </a>
             <div className="hidden sm:block">
               <ul className="flex font-semibold justify-center items-center gap-4">
-                <li>
+                {/* <li>
                   <a
                     href="#"
                     className="text-gray-700 hover:text-gray-900 px-4 py-4 inline-block select-none"
                   >
                     Home
                   </a>
-                </li>
-                <li>
+                </li> */}
+                {/* <li>
                   <a
                     href="#"
                     className="text-gray-700 hover:text-gray-900 px-4 py-4 inline-block select-none"
                   >
                     About
                   </a>
-                </li>
-                <li>
+                </li> */}
+                {/* <li>
                   <a
                     href="#"
                     className="text-gray-700 hover:text-gray-900 px-4 py-4 inline-block select-none"
                   >
                     Contact
                   </a>
-                </li>
+                </li> */}
                 <li>
                   <a
                     href="#"
