@@ -16,7 +16,7 @@ const Login = ({ handleLoginPopup }) => {
   const navigate = useNavigate();
   const { login } = useAuth();
   const [formData, setFormData] = useState({
-    aadhar_number: "",
+    email: "",
     password: ""
   });
   const [showPassword, setShowPassword] = useState(false);
@@ -35,48 +35,45 @@ const Login = ({ handleLoginPopup }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Login attempt:", formData); // Debug log
+    setIsLoading(true);
 
-    if (!formData.aadhar_number || !formData.password) {
-      setError("All fields are required!");
+    // Simple validation
+    if (!formData.email || !formData.password) {
+      setError("Both email and password are required.");
+      setIsLoading(false);
       return;
     }
 
-    setIsLoading(true);
-    setError("");
-
     try {
-      // Simulated authentication - replace with your actual API call
-      if (formData.aadhar_number === "123456789012" && formData.password === "password123") {
-        const userData = {
-          username: "Krishna27S",
-          role: "user",
-          aadhar_number: formData.aadhar_number,
-          loginTime: currentDateTime
-        };
+      const response = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email: formData.email, password: formData.password }),
+        credentials: 'include', // Ensure cookies are sent with the request
+      });
 
-        // Store user data
-        localStorage.setItem('user', JSON.stringify(userData));
-        
-        // Update auth context
-        await login(userData);
-        
-        // Close login popup
-        handleLoginPopup(false);
-        
-        // Navigate to dashboard
-        console.log("Redirecting to dashboard..."); // Debug log
-        navigate('/dashboard');
-      } else {
-        throw new Error("Invalid credentials!");
+      const result = await response.json();
+      
+      if (!response.ok) {
+        setError(result.message || "Login failed");
+        console.error("Error response:", result);
+        throw new Error(result.message);
       }
-    } catch (err) {
-      console.error("Login error:", err); // Debug log
-      setError(err.message || "Login failed!");
+
+      console.log("Login success:", result);
+      login(result.user); // Assuming you use a context to update user state
+      navigate("/dashboard"); // Navigate to the dashboard or another page after login
+
+    } catch (error) {
+      console.error('Login error details:', error);
+      setError("An error occurred. Please try again.");
     } finally {
       setIsLoading(false);
     }
-  };
+};
+
 
   return (
     <div className="p-6 historical-login">
@@ -100,20 +97,18 @@ const Login = ({ handleLoginPopup }) => {
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-3">
         <div className="form-field">
-          <label htmlFor="aadhar_number" className="input-label text-parchment flex items-center">
+          <label htmlFor="email" className="input-label text-parchment flex items-center">
             <GiTreasureMap className="mr-2 text-xl" />
-            <span>Sacred Identity Number</span>
+            <span>Email Address</span>
           </label>
           <div className="input-wrapper">
             <input
-              id="aadhar_number"
-              type="text"
-              value={formData.aadhar_number}
+              id="email"
+              type="email"  // Changed to email input type
+              value={formData.email}
               onChange={handleChange}
               className="historical-input"
-              placeholder="Enter 12-digit Aadhar number"
-              maxLength="12"
-              pattern="\d{12}"
+              placeholder="Enter your email"
             />
             <GiWaxSeal className="wax-seal" />
           </div>

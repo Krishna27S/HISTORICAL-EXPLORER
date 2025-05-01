@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import Login from "./Login";
+import Login from "./Login";  // Ensure Login component uses email instead of aadhar_number
 import Signin from "./Signin";
 import { GiScrollUnfurled, GiHourglass } from "react-icons/gi";
 
