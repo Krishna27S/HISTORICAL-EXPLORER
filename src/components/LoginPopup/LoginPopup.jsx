@@ -7,7 +7,7 @@ import { GiScrollUnfurled, GiHourglass } from "react-icons/gi";
 const LoginPopup = ({ loginPopup, handleLoginPopup }) => {
   const [showSignIn, setShowSignIn] = useState(false);
   const loginPopupRef = useRef();
-  const currentDateTime = "2025-03-03 19:10:48";
+  // const currentDateTime = "2025-03-03 19:10:48";
   const currentUser = "Krishna27S";
 
   const handleSignIn = () => {
@@ -40,7 +40,7 @@ const LoginPopup = ({ loginPopup, handleLoginPopup }) => {
                 {/* Header */}
                 <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 flex items-center gap-2 text-amber-100/80 text-sm px-4 py-2 bg-[#1a0f0f]/90 rounded-t-lg border border-amber-900/30">
                   <GiHourglass className="text-amber-500 animate-pulse" />
-                  <span>{currentDateTime}</span>
+                  {/* <span>{currentDateTime}</span> */}
                 </div>
 
                 {/* Content */}
@@ -59,7 +59,7 @@ const LoginPopup = ({ loginPopup, handleLoginPopup }) => {
                       <Signin 
                         handleSignIn={handleSignIn} 
                         handleLoginPopup={handleLoginPopup}
-                        currentDateTime={currentDateTime}
+                        // currentDateTime={currentDateTime}
                         currentUser={currentUser}
                       />
                     </>
@@ -70,17 +70,15 @@ const LoginPopup = ({ loginPopup, handleLoginPopup }) => {
                         <h2 className="text-2xl font-medieval text-amber-100">
                           Portal Access
                         </h2>
-                        <p className="text-amber-400/60 text-sm">
-                          Enter the Ancient Realm
-                        </p>
+                        
                       </div>
                       <Login 
                         handleSignIn={handleSignIn} 
                         handleLoginPopup={handleLoginPopup}
-                        currentDateTime={currentDateTime}
+                        // currentDateTime={currentDateTime}
                         currentUser={currentUser}
                       />
-                    </>
+                    </> 
                   )}
                 </div>
 

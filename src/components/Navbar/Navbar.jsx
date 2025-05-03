@@ -5,8 +5,8 @@ import { GiScrollQuill, GiAncientSword, GiSpellBook } from "react-icons/gi";
 
 const Navbar = ({ handleLoginPopup }) => {
   const { user, logout } = useAuth();
-  const currentDateTime = "2025-03-03 18:49:33"; // Current UTC time
-  const currentUser = "Krishna27S";
+  // const currentDateTime = "2025-03-03 18:49:33"; // Current UTC time
+  const currentUser = "Krishna";
 
   return (
     <nav className="bg-[#1a0f0f]/90 backdrop-blur-md border-b border-amber-900/30">
@@ -26,7 +26,7 @@ const Navbar = ({ handleLoginPopup }) => {
             {/* DateTime Display */}
             <div className="hidden md:flex items-center gap-2 text-amber-100/80 text-sm">
               <GiSpellBook className="text-lg" />
-              <span>{currentDateTime}</span>
+              {/* <span>{currentDateTime}</span> */}
             </div>
 
             {/* User Navigation */}
@@ -43,7 +43,7 @@ const Navbar = ({ handleLoginPopup }) => {
                     <span>Admin Sanctum</span>
                   </Link>
                 )}
-                <Link 
+                {/* <Link 
                   to="/mystical-realm"
                   className="flex items-center gap-2 px-4 py-2 bg-amber-900/30 
                            text-amber-100 rounded-lg hover:bg-amber-800/40 
@@ -51,22 +51,22 @@ const Navbar = ({ handleLoginPopup }) => {
                 >
                   <GiSpellBook className="text-lg" />
                   <span>Mystical Realm</span>
-                </Link>
+                </Link> */}
                 <button 
                   onClick={logout}
                   className="flex items-center gap-2 px-4 py-2 bg-red-900/30 
                            text-amber-100 rounded-lg hover:bg-red-800/40 
                            transition-colors duration-300 border border-red-800/30"
                 >
-                  <span>Leave Portal</span>
+                  <span>LogOut</span>
                 </button>
               </div>
             ) : (
               <div className="flex items-center gap-4">
                 {/* Current User Display (when not logged in) */}
-                <span className="hidden md:block text-amber-100/60 text-sm">
+                {/* <span className="hidden md:block text-amber-100/60 text-sm">
                   Last Scribe: {currentUser}
-                </span>
+                </span> */}
                 
                 {/* Login Button */}
                 <button

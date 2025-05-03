@@ -48,15 +48,15 @@ const Dashboard = ({ currentUser, currentDateTime }) => {
                   Explorer Dashboard
                 </h1>
                 <p className="text-amber-400/60 text-sm">
-                  Welcome, {currentUser}
+                  Welcome
                 </p>
               </div>
             </div>
             <div className="flex items-center space-x-6">
-              <div className="text-amber-100/60 text-sm flex items-center">
+              {/* <div className="text-amber-100/60 text-sm flex items-center">
                 <FaClock className="mr-2" />
                 {currentDateTime}
-              </div>
+              </div> */}
               <button 
                 onClick={handleLogout}
                 className="flex items-center gap-2 px-4 py-2 bg-red-900/30 
@@ -64,7 +64,7 @@ const Dashboard = ({ currentUser, currentDateTime }) => {
                          transition-colors duration-300 border border-red-800/30"
               >
                 <FaSignOutAlt />
-                <span>Leave Portal</span>
+                <span>LogOut</span>
               </button>
             </div>
           </div>
@@ -111,14 +111,14 @@ const Dashboard = ({ currentUser, currentDateTime }) => {
                          hover:border-amber-500/50 transition-all duration-300"
               >
                 <GiSpellBook className="w-6 h-6 text-amber-500 mx-auto mb-2" />
-                <span className="text-amber-100 text-sm">Mystical Realm</span>
+                <span className="text-amber-100 text-sm">Places Visited</span>
               </button>
               <button 
                 className="p-4 bg-[#1a0f0f] rounded-lg border border-amber-900/20
                          hover:border-amber-500/50 transition-all duration-300"
               >
                 <GiScrollQuill className="w-6 h-6 text-amber-500 mx-auto mb-2" />
-                <span className="text-amber-100 text-sm">New Quest</span>
+                <span className="text-amber-100 text-sm">New Suggestion</span>
               </button>
             </div>
           </div>
@@ -126,14 +126,14 @@ const Dashboard = ({ currentUser, currentDateTime }) => {
           {/* User Profile */}
           <div className="bg-[#2a1f1f] rounded-lg p-6 border border-amber-900/30">
             <h2 className="text-xl font-medieval text-amber-100 mb-4">
-              Explorer Profile
+              User Profile
             </h2>
             <div className="flex items-center space-x-4">
               <FaUserCircle className="w-16 h-16 text-amber-500" />
               <div>
-                <p className="text-amber-100">{currentUser}</p>
-                <p className="text-amber-400/60 text-sm">Level: Explorer</p>
-                <p className="text-amber-400/60 text-sm">Joined: 2025-03-03</p>
+                <p className="text-amber-100">Krishna</p>
+                
+                
               </div>
             </div>
           </div>

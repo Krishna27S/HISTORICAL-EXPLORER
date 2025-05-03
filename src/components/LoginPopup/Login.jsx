@@ -85,7 +85,7 @@ const Login = ({ handleLoginPopup }) => {
       <div className="scroll-header animated-scroll">
         <GiScrollUnfurled className="text-5xl text-amber-700 mb-2 scroll-icon" />
         <h1 className="text-3xl text-amber-100 font-medieval text-center mb-4">
-          Welcome to the Ancient Portal
+          Welcome 
         </h1>
       </div>
 
@@ -117,7 +117,7 @@ const Login = ({ handleLoginPopup }) => {
         <div className="form-field">
           <label htmlFor="password" className="input-label text-parchment flex items-center">
             <GiFeather className="mr-2 text-xl quill-icon" />
-            <span>Mystical Cipher</span>
+            <span>Password</span>
           </label>
           <div className="input-wrapper">
             <input
@@ -151,7 +151,7 @@ const Login = ({ handleLoginPopup }) => {
         >
           <div className="button-content">
             <GiAncientSword className={`inline-block mr-2 sword-icon ${isLoading ? 'animate-spin' : ''}`} />
-            <span>{isLoading ? 'Opening Portal...' : 'Breach the Portal'}</span>
+            <span>{isLoading ? 'Opening Portal...' : 'login'}</span>
           </div>
         </button>
       </form>

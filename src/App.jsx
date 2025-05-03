@@ -87,8 +87,8 @@ const App = () => {
                       <div className="flex items-center gap-4 mb-8">
                         <GiSpellBook className="text-4xl text-amber-500" />
                         <div>
-                          <h1 className="text-3xl font-medieval">Welcome to the Mystical Realm</h1>
-                          <p className="text-amber-400/60">Explorer: {currentUser}</p>
+                          <h1 className="text-3xl font-medieval">Welcome to Your Dashboard</h1>
+                          {/* <p className="text-amber-400/60">Explorer: {currentUser}</p> */}
                         </div>
                       </div>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
